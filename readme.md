@@ -1,7 +1,7 @@
 # Metaballs
 A rough visualization of [Metaballs](https://en.wikipedia.org/wiki/Metaballs) using [marching squares](https://en.wikipedia.org/wiki/Marching_squares). Still needs a lot of work tho.
 
-![](.\metaballs.png)
+![](metaballs.png)
 
 Inspired by this [reducible video](https://www.youtube.com/watch?v=6oMZb3yP_H8)
 
