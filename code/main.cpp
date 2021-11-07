@@ -9,6 +9,10 @@ inline Color hex_to_color(unsigned int color) {
 	return Color{(color >> 24) & 0xff, (color >> 16) & 0xff, (color >> 8) & 0xff, color & 0xff};
 }
 
+float lerp_pixel(int a, float a_val, int b, float b_val) {
+	return (a + (b - a) * (1 - a_val) / (b_val - a_val));
+}
+
 int main()
 {
 	InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "MEATBALLS!!!");
@@ -84,86 +88,86 @@ int main()
 							//DrawCircleLines(x, y, cell_size, RED);
 						}break;
 						case 1: {
-							Vector2 l1 = {p1.x, p1.y + cell_size * 0.5f};
-							Vector2 l2 = {p1.x + cell_size * 0.5f, p1.y};
+							Vector2 l1 = {p1.x, lerp_pixel(p1.y, CELL(j, i), p4.y, CELL(j, i + 1))};
+							Vector2 l2 = {lerp_pixel(p1.x, CELL(j, i), p2.x, CELL(j + 1, i)), p1.y};
 							DrawLineV(l1, l2, WHITE);
 						} break;
 						case 2: { 
-							Vector2 l1 = {p2.x - cell_size * 0.5f, p2.y};
-							Vector2 l2 = {p2.x, p2.y + cell_size * 0.5f};
+							Vector2 l1 = {lerp_pixel(p1.x, CELL(j, i), p2.x, CELL(j + 1, i)), p2.y};
+							Vector2 l2 = {p2.x, lerp_pixel(p2.y, CELL(j + 1, i), p3.y, CELL(j+1, i+1))};
 							DrawLineV(l1, l2, WHITE);
 						} break;
 						case 3: { 
-							Vector2 l1 = {p1.x, p1.y +  cell_size * 0.5f};
-							Vector2 l2 = {p2.x, p2.y + cell_size * 0.5f};
+							Vector2 l1 = {p1.x, lerp_pixel(p1.y, CELL(j, i), p4.y, CELL(j, i + 1))};
+							Vector2 l2 = {p2.x, lerp_pixel(p2.y, CELL(j + 1, i), p3.y, CELL(j + 1, i + 1))};
 							DrawLineV(l1, l2, WHITE);
 						} break;
 						case 4: { 
-							Vector2 l1 = {p3.x, p3.y - cell_size * 0.5f};
-							Vector2 l2 = {p3.x - cell_size * 0.5f, p3.y};
+							Vector2 l1 = {lerp_pixel(p4.x, CELL(j, i + 1), p3.x, CELL(j + 1, i + 1)), p4.y};
+							Vector2 l2 = {p2.x, lerp_pixel(p2.y, CELL(j + 1, i), p3.y, CELL(j + 1, i + 1))};
+							
 							DrawLineV(l1, l2, WHITE);
 						} break;
 						case 5: { 
-							Vector2 l1 = {p2.x - cell_size * 0.5f, p2.y};
-							Vector2 l2 = {p2.x, p2.y + cell_size * 0.5f};
+							Vector2 l1 = {lerp_pixel(p1.x, CELL(j, i), p2.x, CELL(j + 1, i)), p2.y};
+							Vector2 l2 = {p2.x, lerp_pixel(p2.y, CELL(j + 1, i), p3.y, CELL(j+1, i+1))};
 							
-							Vector2 l3 = {p4.x, p4.y - cell_size * 0.5f};
-							Vector2 l4 = {p4.x + cell_size * 0.5f, p4.y};
+							Vector2 l3 = {p4.x, lerp_pixel(p1.y, CELL(j, i), p4.y, CELL(j, i + 1))};
+							Vector2 l4 = {lerp_pixel(p4.x, CELL(j, i + 1), p3.x, CELL(j + 1, i + 1)), p4.y};
 							
 							DrawLineV(l1, l2, WHITE);
 							DrawLineV(l3, l4, WHITE);
 						} break;
 						case 6: { 
-							Vector2 l1 = {p2.x - cell_size * 0.5f, p2.y};
-							Vector2 l2 = {p3.x - cell_size * 0.5f, p3.y};
+							Vector2 l1 = {lerp_pixel(p1.x, CELL(j, i), p2.x, CELL(j + 1, i)), p2.y};
+							Vector2 l2 = {lerp_pixel(p4.x, CELL(j, i + 1), p3.x, CELL(j + 1, i + 1)), p3.y};
 							DrawLineV(l1, l2, WHITE);
 						} break;
 						case 7: { 
-							Vector2 l1 = {p4.x, p4.y - cell_size * 0.5f};
-							Vector2 l2 = {p4.x + cell_size * 0.5f, p4.y};
+							Vector2 l1 = {p4.x, lerp_pixel(p1.y, CELL(j, i), p4.y, CELL(j, i + 1))};
+							Vector2 l2 = {lerp_pixel(p4.x, CELL(j, i + 1), p3.x, CELL(j + 1, i + 1)), p4.y};
 							
 							DrawLineV(l1, l2, WHITE);
 						} break;
 						case 8: { 
-							Vector2 l1 = {p4.x, p4.y - cell_size * 0.5f};
-							Vector2 l2 = {p4.x + cell_size * 0.5f, p4.y};
+							Vector2 l1 = {p4.x, lerp_pixel(p1.y, CELL(j, i), p4.y, CELL(j, i + 1))};
+							Vector2 l2 = {lerp_pixel(p4.x, CELL(j, i + 1), p3.x, CELL(j + 1, i + 1)), p4.y};
 							
 							DrawLineV(l1, l2, WHITE);
 						} break;
 						case 9: { 
-							Vector2 l1 = {p1.x + cell_size * 0.5f, p1.y};
-							Vector2 l2 = {p4.x + cell_size * 0.5f, p4.y};
+							Vector2 l1 = {lerp_pixel(p1.x, CELL(j, i), p2.x, CELL(j + 1, i)), p1.y};
+							Vector2 l2 = {lerp_pixel(p4.x, CELL(j, i + 1), p3.x, CELL(j + 1, i + 1)), p4.y};
 							DrawLineV(l1, l2, WHITE);
 						} break;
 						case 10: { 
-							Vector2 l1 = {p1.x, p1.y + cell_size * 0.5f};
-							Vector2 l2 = {p1.x + cell_size * 0.5f, p1.y};
-							Vector2 l3 = {p3.x, p3.y - cell_size * 0.5f};
-							Vector2 l4 = {p3.x - cell_size * 0.5f, p3.y};
+							Vector2 l1 = {p1.x, lerp_pixel(p1.y, CELL(j, i), p4.y, CELL(j, i + 1))};
+							Vector2 l2 = {lerp_pixel(p1.x, CELL(j, i), p2.x, CELL(j + 1, i)), p1.y};
+							Vector2 l3 = {lerp_pixel(p4.x, CELL(j, i + 1), p3.x, CELL(j + 1, i + 1)), p4.y};
+							Vector2 l4 = {p2.x, lerp_pixel(p2.y, CELL(j + 1, i), p3.y, CELL(j + 1, i + 1))};
 							
 							DrawLineV(l1, l2, WHITE);
 							DrawLineV(l3, l4, WHITE);
 						} break;
 						case 11: { 
-							Vector2 l1 = {p3.x, p3.y - cell_size * 0.5f};
-							Vector2 l2 = {p3.x - cell_size * 0.5f, p3.y};
+							Vector2 l1 = {lerp_pixel(p4.x, CELL(j, i + 1), p3.x, CELL(j + 1, i + 1)), p4.y};
+							Vector2 l2 = {p2.x, lerp_pixel(p2.y, CELL(j + 1, i), p3.y, CELL(j + 1, i + 1))};
+							
 							DrawLineV(l1, l2, WHITE);
 						} break;
 						case 12: { 
-							Vector2 l1 = {p4.x, p4.y -  cell_size * 0.5f};
-							Vector2 l2 = {p3.x, p3.y - cell_size * 0.5f};
+							Vector2 l1 = {p4.x, lerp_pixel(p1.y, CELL(j, i), p4.y, CELL(j, i + 1))};
+							Vector2 l2 = {p3.x, lerp_pixel(p2.y, CELL(j + 1, i), p3.y, CELL(j + 1, i + 1))};
 							DrawLineV(l1, l2, WHITE);
 						} break;
 						case 13: { 
-							Vector2 l1 = {p2.x - cell_size * 0.5f, p2.y};
-							Vector2 l2 = {p2.x, p2.y + cell_size * 0.5f};
-							
+							Vector2 l1 = {lerp_pixel(p1.x, CELL(j, i), p2.x, CELL(j + 1, i)), p2.y};
+							Vector2 l2 = {p2.x, lerp_pixel(p2.y, CELL(j + 1, i), p3.y, CELL(j+1, i+1))};
 							DrawLineV(l1, l2, WHITE);
-							
 						} break;
 						case 14: { 
-							Vector2 l1 = {p1.x, p1.y + cell_size * 0.5f};
-							Vector2 l2 = {p1.x + cell_size * 0.5f, p1.y};
+							Vector2 l1 = {p1.x, lerp_pixel(p1.y, CELL(j, i), p4.y, CELL(j, i + 1))};
+							Vector2 l2 = {lerp_pixel(p1.x, CELL(j, i), p2.x, CELL(j + 1, i)), p1.y};
 							DrawLineV(l1, l2, WHITE);
 						} break;
 						
